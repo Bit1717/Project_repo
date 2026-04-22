@@ -12,7 +12,7 @@ st.title("Hallo bei FridgeBoss")
 st.subheader("Text Input")
 name = st.text_input("Bitte Namen eingeben", placeholder= "Dein name ist...")
 if name != "":
-st.write(f"Hallo bei FridgeBoss {name}! Ich bin dein persönliches Rezept generiersystem, wie kann ich behilflich sein")
+    st.write(f"Hallo bei FridgeBoss {name}! Ich bin dein persönliches Rezept generiersystem, wie kann ich behilflich sein")
 
 
 

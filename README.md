@@ -1,0 +1,3 @@
+This is the description of the Group number 9.02, we will focus on making a tool for cooking recipes that will give recommandations.
+
+Here is how it works!...

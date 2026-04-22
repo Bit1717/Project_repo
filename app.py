@@ -24,7 +24,7 @@ if st.session_state.rezept_typ is None:
 col1, col2, col3 = st.columns(3) # alle buttons auf eine höhe packen
 
 
-if col1.button ("🌱Vegan" if st.session_state.rezept_typ != "Vegan" else "✅ Vegan" key = "btn_Vegan"): 
+if col1.button ("🌱Vegan" if st.session_state.rezept_typ != "Vegan" else "✅ Vegan", key = "btn_Vegan"): 
     st.session_state.rezept_typ = "Vegan"
 elif col2.button ("🥗Vegetarisch" if st.session_state.rezept_typ != "Vegetarisch" else "✅ Vegetarisch", key = "btn_Vegetarisch"):
     st.session_state.rezept_typ = "Vegetarisch"

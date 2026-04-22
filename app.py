@@ -6,6 +6,13 @@ st.set_page_config(
     page_title="FridgeBoss", 
     layout="wide")
 
+#Titel + introduction
+st.title("Hallo bei FridgeBoss")
+st.write("Hallo, bei FridgeBoss ihr persönliches Rezept generiersystem,wie kann ich behilflich sein")
+
+
+
+
 original_list = [i for i in range(10)]
 
 even_list = return_even(original_list)
@@ -17,3 +24,4 @@ st.write("Hooray, we connected everything")
 st.write(even_list)
 
 st.write(odd_list)
+

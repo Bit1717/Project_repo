@@ -18,9 +18,9 @@ st.subheader("Rezept typ")
 col1, col2, col3 = st.columns(3)
 if col1.button("Vegan"):
     st.write("Sie wünschen sich also ein Veganes Rezept!")
-elif col2.button ("Vegetarisch")
+elif col2.button ("Vegetarisch"):
     st.write("Sie wünschen sich also ein Vegetarisches Rezept!")
-elif col3.button ("Allesesser")
+elif col3.button ("Allesesser"):
     st.write("Sie wünschen sich also ein normales Rezept")
 else:
     st.write("Bitte wählen sie aus was für ein Rezept sie sich wünschen")

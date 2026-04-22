@@ -8,7 +8,11 @@ st.set_page_config(
 
 #Titel + introduction
 st.title("Hallo bei FridgeBoss")
-st.write("Hallo, bei FridgeBoss ihr persönliches Rezept generiersystem,wie kann ich behilflich sein")
+
+st.subheader("Text Input")
+name = st.text_input("Bitte Namen eingeben", placeholder= "Dein name ist...")
+if name != "":
+st.write(f"Hallo bei FridgeBoss {name}! Ich bin dein persönliches Rezept generiersystem, wie kann ich behilflich sein")
 
 
 

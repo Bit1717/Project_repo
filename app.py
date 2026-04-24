@@ -117,6 +117,102 @@ ingredients = st.multiselect(
     ]
 )
 
+st.markdown("## 🧊 Dein digitaler Kühlschrank")
+
+ingredient_icons = {
+    "Tomate": "🍅",
+    "Milch": "🥛",
+    "Reis": "🍚",
+    "Käse": "🧀",
+    "Ei": "🥚",
+    "Brokkoli": "🥦",
+    "Tofu": "🧊",
+    "Zwiebel": "🧅",
+    "Knoblauch": "🧄",
+    "Pasta": "🍝",
+    "Chicken": "🍗",
+    "Salat": "🥬",
+    "Karotte": "🥕",
+    "Kartoffel": "🥔"
+}
+
+expiry_status = {
+    "Milch": "soon",
+    "Tomate": "soon",
+    "Käse": "medium",
+    "Ei": "medium",
+    "Reis": "ok",
+    "Pasta": "ok",
+    "Kartoffel": "ok"
+}
+
+def get_card_color(status):
+    if status == "soon":
+        return "#ffe3e3"   # bald ablaufend
+    elif status == "medium":
+        return "#fff3cd"   # mittel
+    else:
+        return "#e6f4ea"   # frisch / ok
+if ingredients:
+    st.markdown(
+        """
+        <div style="
+            border: 3px solid #d0d7de;
+            border-radius: 24px;
+            padding: 24px;
+            background: linear-gradient(180deg, #f8fafc, #e9eef5);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        ">
+        """,
+        unsafe_allow_html=True
+    )
+
+    cols = st.columns(4)
+
+    for i, ingredient in enumerate(ingredients):
+        icon = ingredient_icons.get(ingredient, "🥫")
+        status = expiry_status.get(ingredient, "ok")
+        color = get_card_color(status)
+
+        if status == "soon":
+            label = "läuft bald ab"
+        elif status == "medium":
+            label = "bald verwenden"
+        else:
+            label = "frisch"
+ with cols[i % 4]:
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: {color};
+                    border-radius: 18px;
+                    padding: 18px;
+                    text-align: center;
+                    margin-bottom: 14px;
+                    border: 1px solid #d8dee4;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+                ">
+                    <div style="font-size: 44px;">{icon}</div>
+                    <div style="font-size: 17px; font-weight: 700; margin-top: 6px;">
+                        {ingredient}
+                    </div>
+                    <div style="font-size: 12px; color: #57606a; margin-top: 4px;">
+                        {label}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    st.caption("🔴 läuft bald ab · 🟡 bald verwenden · 🟢 frisch")
+
+else:
+    st.info("Wähle Zutaten aus, um deinen digitalen Kühlschrank zu sehen.")
+
+
+
 # Digitaler Kühlschrank
 
 ingredient_icons = {

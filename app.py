@@ -141,4 +141,43 @@ elif st.session_state.rezept_typ == "Allesser":
     st.write("Sie wünschen sich also ein normales Rezept")
 
 
+st.subheader("⚙️ Deine Präferenzen")
 
+col1, col2 = st.columns(2)
+
+with col1:
+    # Cooking time slider
+    kochzeit = st.slider(
+        "⏱️ Max. Kochzeit (Minuten)",
+        min_value=5,
+        max_value=120,
+        value=30,        # default value
+        step=5
+    )
+
+    # Calorie slider
+    kalorien = st.slider(
+        "🔥 Kalorien pro Portion",
+        min_value=100,
+        max_value=1500,
+        value=(300, 700),  # range slider! min and max
+        step=50
+    )
+
+with col2:
+    # Budget slider
+    budget = st.slider(
+        "💰 Max. Budget (CHF)",
+        min_value=5,
+        max_value=100,
+        value=25,
+        step=5
+    )
+
+    # Number of servings
+    portionen = st.number_input(
+        "👥 Anzahl Personen",
+        min_value=1,
+        max_value=10,
+        value=2
+    )

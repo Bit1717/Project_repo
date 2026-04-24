@@ -180,7 +180,7 @@ if ingredients:
             label = "bald verwenden"
         else:
             label = "frisch"
- with cols[i % 4]:
+        with cols[i % 4]:
             st.markdown(
                 f"""
                 <div style="

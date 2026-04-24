@@ -31,23 +31,45 @@ def init_db():
                   id         INTEGER PRIMARY KEY AUTOINCREMENT,
                 name       TEXT UNIQUE NOT NULL,
                 rezept_typ TEXT
+                max_kochzeit  INTEGER DEFAULT 30,
+                kal_min       INTEGER DEFAULT 300,
+                kal_max       INTEGER DEFAULT 700,
+                max_budget    REAL    DEFAULT 25,
+                portionen     INTEGER DEFAULT 2
+
               )
               """)
     conn.commit ()
     conn.close ()
 
-def save_user(name: str, rezept_typ: str):
-    """Save or update a user and their meal preference."""
+def save_user(name: str, rezept_typ: str = None,
+              max_kochzeit: int = None, kal_min: int = None,
+              kal_max: int = None, max_budget: float = None,
+              portionen: int = None):
+    """Save or update a user and their preferences."""
     conn = sqlite3.connect("fridgechef.db")
     c = conn.cursor()
-    c.execute("""
-        INSERT INTO users (name, rezept_typ)
-        VALUES (?, ?)
-        ON CONFLICT(name) DO UPDATE SET
-            rezept_typ = excluded.rezept_typ
-    """, (name, rezept_typ))
+ 
+    # Make sure user exists first
+    c.execute("INSERT OR IGNORE INTO users (name) VALUES (?)", (name,))
+ 
+    # Only update fields that were actually provided
+    if rezept_typ   is not None:
+        c.execute("UPDATE users SET rezept_typ   = ? WHERE name = ?", (rezept_typ,   name))
+    if max_kochzeit is not None:
+        c.execute("UPDATE users SET max_kochzeit = ? WHERE name = ?", (max_kochzeit, name))
+    if kal_min      is not None:
+        c.execute("UPDATE users SET kal_min      = ? WHERE name = ?", (kal_min,      name))
+    if kal_max      is not None:
+        c.execute("UPDATE users SET kal_max      = ? WHERE name = ?", (kal_max,      name))
+    if max_budget   is not None:
+        c.execute("UPDATE users SET max_budget   = ? WHERE name = ?", (max_budget,   name))
+    if portionen    is not None:
+        c.execute("UPDATE users SET portionen    = ? WHERE name = ?", (portionen,    name))
+ 
     conn.commit()
     conn.close()
+
  
 def load_users() -> list:
     """Load all saved usernames."""
@@ -142,82 +164,58 @@ elif st.session_state.rezept_typ == "Allesser":
 
 
 st.subheader("⚙️ Deine Präferenzen")
-
-# Initialize session state FIRST - before anything uses them
-if "rezept_typ"   not in st.session_state: st.session_state.rezept_typ   = None
-if "max_kochzeit" not in st.session_state: st.session_state.max_kochzeit = 30
-if "kal_min"      not in st.session_state: st.session_state.kal_min      = 300
-if "kal_max"      not in st.session_state: st.session_state.kal_max      = 700
-if "max_budget"   not in st.session_state: st.session_state.max_budget   = 25.0
-if "portionen"    not in st.session_state: st.session_state.portionen    = 2
-
-
-# Define variables BEFORE the columns
-max_kochzeit = st.session_state.max_kochzeit
-kal_range    = (st.session_state.kal_min, st.session_state.kal_max)
-max_budget   = int(st.session_state.max_budget)
-portionen    = st.session_state.portionen
-
-
-col1, col2 = st.columns(2)
-
-with col1:
-    # Cooking time slider
-    kochzeit = st.slider(
+ 
+col_left, col_right = st.columns(2)
+ 
+with col_left:
+    max_kochzeit = st.slider(
         "⏱️ Max. Kochzeit (Minuten)",
         min_value=5,
         max_value=120,
-        value=30,        # default value
-        step=5
+        value=int(st.session_state.max_kochzeit),  # loads this user's saved value
+        step=5,
     )
-
-    # Calorie slider
-    kalorien = st.slider(
+    kal_range = st.slider(
         "🔥 Kalorien pro Portion",
         min_value=100,
         max_value=1500,
-        value=(300, 700),  # range slider! min and max
-        step=50
+        value=(int(st.session_state.kal_min), int(st.session_state.kal_max)),  # loads saved range
+        step=50,
     )
-
-with col2:
-    # Budget slider
-    budget = st.slider(
+ 
+with col_right:
+    max_budget = st.slider(
         "💰 Max. Budget (CHF)",
         min_value=5,
         max_value=1000,
-        value=25,
-        step=5
+        value=int(st.session_state.max_budget),  # loads this user's saved value
+        step=5,
     )
-
-    # Number of servings
     portionen = st.number_input(
         "👥 Anzahl Personen",
         min_value=1,
         max_value=10,
-        value=2,
-        step=1        
+        value=int(st.session_state.portionen),  # loads this user's saved value
+        step=1,
     )
-    # Save button - saves all slider values for this user
+ 
+# Save button
 if name:
     if st.button("💾 Präferenzen speichern"):
-        # Update session state with new values
-        st.session_state.max_kochzeit = max_kochzeit
-        st.session_state.kal_min      = kal_range[0]
-        st.session_state.kal_max      = kal_range[1]
+        st.session_state.max_kochzeit = int(max_kochzeit)
+        st.session_state.kal_min      = int(kal_range[0])
+        st.session_state.kal_max      = int(kal_range[1])
         st.session_state.max_budget   = float(max_budget)
-        st.session_state.portionen    = int(portionen) if portionen else 2  # ← safe default
+        st.session_state.portionen    = int(float(portionen)) if portionen else 2
  
-        # Save to database
         save_user(
             name,
-            max_kochzeit = max_kochzeit,
-            kal_min      = kal_range[0],
-            kal_max      = kal_range[1],
+            max_kochzeit = int(max_kochzeit),
+            kal_min      = int(kal_range[0]),
+            kal_max      = int(kal_range[1]),
             max_budget   = float(max_budget),
-            portionen    = int(portionen) if portionen else 2  # ← safe default
+            portionen    = int(float(portionen)) if portionen else 2,
         )
         st.success(f"✅ Präferenzen für **{name}** gespeichert!")
 else:
     st.info("👆 Bitte zuerst einen Namen eingeben um Präferenzen zu speichern.")
-

@@ -181,3 +181,26 @@ with col2:
         max_value=10,
         value=2
     )
+    # Save button - saves all slider values for this user
+if name:
+    if st.button("💾 Präferenzen speichern"):
+        # Update session state with new values
+        st.session_state.max_kochzeit = max_kochzeit
+        st.session_state.kal_min      = kal_range[0]
+        st.session_state.kal_max      = kal_range[1]
+        st.session_state.max_budget   = float(max_budget)
+        st.session_state.portionen    = int(portionen)
+ 
+        # Save to database
+        save_user(
+            name,
+            max_kochzeit = max_kochzeit,
+            kal_min      = kal_range[0],
+            kal_max      = kal_range[1],
+            max_budget   = float(max_budget),
+            portionen    = int(portionen),
+        )
+        st.success(f"✅ Präferenzen für **{name}** gespeichert!")
+else:
+    st.info("👆 Bitte zuerst einen Namen eingeben um Präferenzen zu speichern.")
+

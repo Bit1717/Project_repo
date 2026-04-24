@@ -24,7 +24,7 @@ __pycache__/
 
 def init_db():
     #create a database if not already there
-    conn.sqlite3.connect("fridgechef.db")
+    conn = sqlite3.connect("fridgechef.db")
     c = conn.cursor()
     c.execute("""
               CREATE TABLE IF NOT EXISTS users(

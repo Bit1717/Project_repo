@@ -195,7 +195,7 @@ with col2:
         "👥 Anzahl Personen",
         min_value=1,
         max_value=10,
-        value=2
+        value=2,
         step=1        
     )
     # Save button - saves all slider values for this user

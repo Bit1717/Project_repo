@@ -213,6 +213,81 @@ else:
     st.info("Wähle Zutaten aus, um deinen digitalen Kühlschrank zu sehen.")
 
 
+st.markdown("## 🧊 Dein Kühlschrank")
+
+ingredient_icons = {
+    "Tomate": "🍅",
+    "Milch": "🥛",
+    "Reis": "🍚",
+    "Käse": "🧀",
+    "Ei": "🥚",
+    "Brokkoli": "🥦",
+    "Tofu": "🧊",
+    "Zwiebel": "🧅",
+    "Knoblauch": "🧄",
+    "Pasta": "🍝",
+    "Chicken": "🍗",
+    "Salat": "🥬",
+    "Karotte": "🥕",
+    "Kartoffel": "🥔"
+}
+
+FRIDGE_LAYOUT = {
+    "🥛 Oberes Fach": ["Milch", "Käse", "Ei"],
+    "🥦 Gemüsefach": ["Tomate", "Brokkoli", "Karotte", "Salat"],
+    "🍚 Unteres Fach": ["Reis", "Pasta", "Zwiebel", "Kartoffel"]
+}
+
+if ingredients:
+    st.markdown(
+        """
+        <div style="
+            border: 4px solid #d0d7de;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: #f8fafc;
+        ">
+        """,
+        unsafe_allow_html=True
+    )
+
+    for shelf, items in FRIDGE_LAYOUT.items():
+        st.markdown(f"### {shelf}")
+
+        cols = st.columns(4)
+
+        shelf_items = [item for item in items if item in ingredients]
+
+        if shelf_items:
+            for i, item in enumerate(shelf_items):
+                icon = ingredient_icons.get(item, "🥫")
+
+                with cols[i % 4]:
+                    st.markdown(
+                        f"""
+                        <div style="
+                            background-color: white;
+                            border-radius: 12px;
+                            padding: 12px;
+                            text-align: center;
+                            margin-bottom: 10px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                        ">
+                            <div style="font-size: 36px;">{icon}</div>
+                            <div>{item}</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+        else:
+            st.write("– leer –")
+
+        st.markdown("<hr>", unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+else:
+    st.info("Wähle Zutaten aus, um deinen Kühlschrank zu sehen.")
 
 # Digitaler Kühlschrank
 

@@ -122,15 +122,15 @@ col1, col2, col3 = st.columns(3) # alle buttons auf eine höhe packen
 if col1.button("🌱 Vegan", key="btn_vegan"):
     st.session_state.rezept_typ = "Vegan"
     if name:
-        save_user(name, Vegan)
+        save_user(name, "Vegan")
 if col2.button("🥗 Vegetarisch", key="btn_vegetarisch"):
     st.session_state.rezept_typ = "Vegetarisch"
     if name:
-        save_user(name, Vegetarisch)
+        save_user(name, "Vegetarisch")
 if col3.button("🍖 Allsesser", key="btn_allesser"):
     st.session_state.rezept_typ = "Allsesser"
     if name:
-        save_user(name, Allesesser)
+        save_user(name, "Allesesser")
 
 
 # Anzeige nach Auswahl

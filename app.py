@@ -108,6 +108,15 @@ if name:
         st.session_state.rezept_typ = saved_pref
         st.session_state.last_name  = name
 
+ingredients = st.multiselect(
+    "Welche Zutaten hast du zu Hause?",
+    [
+        "Tomate", "Milch", "Reis", "Käse", "Ei",
+        "Brokkoli", "Tofu", "Zwiebel", "Knoblauch",
+        "Pasta", "Chicken", "Salat", "Karotte", "Kartoffel"
+    ]
+)
+
 st.subheader("Rezept typ")
 if "rezept_typ" not in st.session_state:  # Falls die Variable noch nicht existiert
     st.session_state.rezept_typ = None     # erstelle sie mit dem Wert None

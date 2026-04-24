@@ -1,7 +1,7 @@
 import streamlit as st
 import sqlite3
 import os 
-import Feature_01 for virtuellen Kühlschrank
+import Feature_01
 
 
 def create_gitignore():

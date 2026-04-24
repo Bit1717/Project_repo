@@ -143,6 +143,13 @@ elif st.session_state.rezept_typ == "Allesser":
 
 st.subheader("⚙️ Deine Präferenzen")
 
+# Define variables BEFORE the columns
+max_kochzeit = st.session_state.max_kochzeit
+kal_range    = (st.session_state.kal_min, st.session_state.kal_max)
+max_budget   = int(st.session_state.max_budget)
+portionen    = st.session_state.portionen
+
+
 col1, col2 = st.columns(2)
 
 with col1:

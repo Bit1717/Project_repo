@@ -206,7 +206,7 @@ if name:
         st.session_state.kal_min      = kal_range[0]
         st.session_state.kal_max      = kal_range[1]
         st.session_state.max_budget   = float(max_budget)
-        st.session_state.portionen    = int(float(portionen))
+        st.session_state.portionen    = int(portionen) if portionen else 2  # ← safe default
  
         # Save to database
         save_user(
@@ -215,7 +215,7 @@ if name:
             kal_min      = kal_range[0],
             kal_max      = kal_range[1],
             max_budget   = float(max_budget),
-            portionen    = int(float(portionen)),
+            portionen    = int(portionen) if portionen else 2  # ← safe default
         )
         st.success(f"✅ Präferenzen für **{name}** gespeichert!")
 else:

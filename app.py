@@ -22,6 +22,20 @@ __pycache__/
 .env
 """)
 
+def init_db():
+    #create a database if not already there
+    conn.sqlite3.connect("fridgechef.db")
+    c = conn.cursor()
+    c.execute("""
+              CREATE TABLE IF NOT EXISTS users(
+                  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+                name       TEXT UNIQUE NOT NULL,
+                rezept_typ TEXT
+              )
+              """)
+    conn.commit ()
+    conn.close ()
+
 def save_user(name: str, rezept_typ: str):
     """Save or update a user and their meal preference."""
     conn = sqlite3.connect("fridgechef.db")
@@ -57,19 +71,7 @@ create_gitignore()  # creates .gitignore if missing
 init_db()           # creates database if missing
 
 
-def init_db():
-    #create a database if not already there
-    conn.sqlite3.connect("fridgechef.db")
-    c = conn.cursor()
-    c.execute("""
-              CREATE TABLE IF NOT EXISTS users(
-                  id         INTEGER PRIMARY KEY AUTOINCREMENT,
-                name       TEXT UNIQUE NOT NULL,
-                rezept_typ TEXT
-              )
-              """)
-    conn.commit ()
-    conn.close ()
+
     
 st.set_page_config(
     page_title="FridgeBoss", 

@@ -185,7 +185,7 @@ with col2:
     budget = st.slider(
         "💰 Max. Budget (CHF)",
         min_value=5,
-        max_value=100,
+        max_value=1000,
         value=25,
         step=5
     )
@@ -196,6 +196,7 @@ with col2:
         min_value=1,
         max_value=10,
         value=2
+        step=1        
     )
     # Save button - saves all slider values for this user
 if name:
@@ -205,7 +206,7 @@ if name:
         st.session_state.kal_min      = kal_range[0]
         st.session_state.kal_max      = kal_range[1]
         st.session_state.max_budget   = float(max_budget)
-        st.session_state.portionen    = int(portionen)
+        st.session_state.portionen    = int(float(portionen))
  
         # Save to database
         save_user(

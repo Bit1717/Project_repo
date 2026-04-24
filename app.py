@@ -143,6 +143,15 @@ elif st.session_state.rezept_typ == "Allesser":
 
 st.subheader("⚙️ Deine Präferenzen")
 
+# Initialize session state FIRST - before anything uses them
+if "rezept_typ"   not in st.session_state: st.session_state.rezept_typ   = None
+if "max_kochzeit" not in st.session_state: st.session_state.max_kochzeit = 30
+if "kal_min"      not in st.session_state: st.session_state.kal_min      = 300
+if "kal_max"      not in st.session_state: st.session_state.kal_max      = 700
+if "max_budget"   not in st.session_state: st.session_state.max_budget   = 25.0
+if "portionen"    not in st.session_state: st.session_state.portionen    = 2
+
+
 # Define variables BEFORE the columns
 max_kochzeit = st.session_state.max_kochzeit
 kal_range    = (st.session_state.kal_min, st.session_state.kal_max)

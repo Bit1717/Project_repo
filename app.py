@@ -1,8 +1,7 @@
 import streamlit as st
 import sqlite3
 import os 
-from Feature_01 import return_even
-from Feature_02 import return_odd
+
 
 def create_gitignore():
     """Creates a .gitignore file automatically if it doesn't exist."""

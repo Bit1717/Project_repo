@@ -142,15 +142,4 @@ elif st.session_state.rezept_typ == "Allesser":
     st.write("Sie wünschen sich also ein normales Rezept")
 
 
-original_list = [i for i in range(10)]
-
-even_list = return_even(original_list)
-
-odd_list = return_odd(original_list)
-
-st.write("Hooray, we connected everything")
-
-st.write(even_list)
-
-st.write(odd_list)
 

@@ -5,9 +5,10 @@ import os
 
 def create_gitignore():
     """Creates a .gitignore file automatically if it doesn't exist."""
-    if not os.path.exists(".gitignore"):
-        with open(".gitignore", "w") as f:
-            f.write("""# Database
+    if not os.path.exists(".gitignore"): # checks if .gitignore file does not already exist
+        with open(".gitignore", "w") as f: #creates new file called .gitignore
+            f.write(""" 
+# Database
 fridgechef.db
  
 # Python cache
@@ -19,7 +20,7 @@ __pycache__/
  
 # Environment variables / secrets
 .env
-""")
+""") #writes content into the file
 
 def init_db():
     #create a database if not already there
@@ -93,8 +94,7 @@ with st.columns([3, 1])[0]:
     else:
         name = st.text_input("Bitte Namen eingeben", placeholder= "Dein Name ist...")
         
-if name != "":
-    st.write(f"Hallo bei FridgeBoss {name}! Ich bin dein persönliches Rezept generiersystem, wie kann ich behilflich sein")
+
 
 if name:
     saved_pref = load_user_preference(name)

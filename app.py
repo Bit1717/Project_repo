@@ -118,6 +118,8 @@ ingredients = st.multiselect(
     ]
 )
 
+Feature_01.show_fridge(ingredients)
+
 st.markdown("## 🧊 Dein digitaler Kühlschrank")
 
 ingredient_icons = {

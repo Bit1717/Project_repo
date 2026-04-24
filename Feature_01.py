@@ -21,7 +21,7 @@ INGREDIENT_IMAGES = {
 
 FRIDGE_LAYOUT = {
     "🥛 Oberes Fach": ["Milch", "Käse", "Ei"],
-    "🥦 Gemüsefach": ["Tomate", "Brokkoli", "Karotte", "Salat"],
+    "🥦 Gemüsefach": ["Tomate", "Brokkoli", "Karotte", "Salat", "Karotte"],
     "🍚 Unteres Fach": ["Reis", "Pasta", "Zwiebel", "Kartoffel"],
     "🥫 Sonstiges": ["Tofu", "Knoblauch", "Chicken"],
 }
@@ -44,7 +44,7 @@ def show_fridge(ingredients):
             box-shadow: 0 10px 25px rgba(0,0,0,0.10);
         ">
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     for shelf_name, shelf_items in FRIDGE_LAYOUT.items():
@@ -71,7 +71,7 @@ def show_fridge(ingredients):
                             box-shadow: 0 4px 10px rgba(0,0,0,0.06);
                         ">
                         """,
-                        unsafe_allow_html=True
+                        unsafe_allow_html=True,
                     )
 
                     if image_url:

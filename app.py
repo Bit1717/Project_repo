@@ -117,6 +117,55 @@ ingredients = st.multiselect(
     ]
 )
 
+# Digitaler Kühlschrank
+
+ingredient_icons = {
+    "Tomate": "🍅",
+    "Milch": "🥛",
+    "Reis": "🍚",
+    "Käse": "🧀",
+    "Ei": "🥚",
+    "Brokkoli": "🥦",
+    "Tofu": "🧊",
+    "Zwiebel": "🧅",
+    "Knoblauch": "🧄",
+    "Pasta": "🍝",
+    "Chicken": "🍗",
+    "Salat": "🥬",
+    "Karotte": "🥕",
+    "Kartoffel": "🥔"
+}
+
+st.markdown("## 🧊 Dein digitaler Kühlschrank")
+
+if ingredients:
+    cols = st.columns(4)
+
+    for i, ingredient in enumerate(ingredients):
+        with cols[i % 4]:
+            icon = ingredient_icons.get(ingredient, "🥫")
+
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: #f3f6f8;
+                    border-radius: 15px;
+                    padding: 18px;
+                    text-align: center;
+                    margin-bottom: 12px;
+                    border: 1px solid #dfe4ea;
+                ">
+                    <div style="font-size: 42px;">{icon}</div>
+                    <div style="font-size: 16px; font-weight: bold;">
+                        {ingredient}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+else:
+    st.info("Wähle Zutaten aus, um deinen digitalen Kühlschrank zu sehen.")
+
 st.subheader("Rezept typ")
 if "rezept_typ" not in st.session_state:  # Falls die Variable noch nicht existiert
     st.session_state.rezept_typ = None     # erstelle sie mit dem Wert None

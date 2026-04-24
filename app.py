@@ -215,7 +215,7 @@ if name:
             kal_min      = kal_range[0],
             kal_max      = kal_range[1],
             max_budget   = float(max_budget),
-            portionen    = int(portionen),
+            portionen    = int(float(portionen)),
         )
         st.success(f"✅ Präferenzen für **{name}** gespeichert!")
 else:
